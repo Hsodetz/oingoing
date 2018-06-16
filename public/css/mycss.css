@@ -1,0 +1,30 @@
+
+/*Agragando fuentes*/
+/* Agregando la fuente Ebrima */
+@font-face {
+  font-family: Ebrima;
+  src: url(fuentes/ebrima.ttf);
+}
+
+/* Agregando la fuente EbrimaBd para los parrafos */
+@font-face {
+  font-family: EbrimaBd;
+  src: url(fuentes/ebrimabd.ttf);
+}
+
+h1, h2, h3, h4, h5, h6{
+  font-family: EbrimaBd
+}
+
+p, li{
+  font-family: Ebrima;
+}
+
+/*Colores Background*/
+.bg-principal{
+  background-color: #006caf;
+}
+
+.bg-gray{
+  background-color: #eeeeee;
+}
