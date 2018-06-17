@@ -17,7 +17,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
+Route::get("/home", 'HomeController@show')->name('home');
 
 
 //Ruta para el select dependiente.
@@ -134,7 +135,53 @@ Route::put('fathers/{father}', 'Admin\FatherController@update')->name('fathers.u
 Route::get('fathers/{father}/edit', 'Admin\FatherController@edit')->name('fathers.edit')
         ->middleware('permission:fathers.edit');
 Route::delete('fathers/{father}', 'Admin\FatherController@destroy')->name('fathers.destroy')
-        ->middleware('permission:fathers.destroy');  
+        ->middleware('permission:fathers.destroy');
+
+
+//Rutas para los profesores
+// Ruta para listar todos los profesores
+Route::get('teachers', 'Admin\FatherController@index')->name('teachers.index')
+->middleware('permission:teachers.index');
+//Ruta para ver los detalles de un profesor
+Route::get('teachers/{father}', 'Admin\FatherController@show')->name('teachers.show')
+->middleware('permission:teachers.show');
+//Ruta para almacenar los datos luego de ser introducidos en el formulario
+Route::post('teachers/store', 'Admin\FatherController@store')->name('teachers.store')
+->middleware('permission:teachers.create');
+//Ruta para mostrar el formulario de creacion de registro de profesores
+Route::get('teacher', 'Admin\FatherController@create')->name('teachers.create')
+->middleware('permission:teachers.create');
+//Ruta para actualizar un profesor por su id
+Route::put('teachers/{father}', 'Admin\FatherController@update')->name('teachers.update')
+->middleware('permission:teachers.edit');
+//Ruta para editar un profesor
+Route::get('teachers/{father}/edit', 'Admin\FatherController@edit')->name('teachers.edit')
+->middleware('permission:teachers.edit');
+Route::delete('teachers/{father}', 'Admin\FatherController@destroy')->name('teachers.destroy')
+->middleware('permission:teachers.destroy');
+
+//Rutas para los periodos
+// Ruta para listar todos los periodos
+Route::get('periods', 'Admin\PeriodController@index')->name('periods.index')
+        ->middleware('permission:periods.index');
+
+//Ruta para ver los detalles de un periodo
+Route::get('periods/{school}', 'Admin\PeriodController@show')->name('periods.show')
+        ->middleware('permission:periods.show');
+//Ruta para almacenar los datos luego de ser introducidos en el formulario
+Route::post('periods/store', 'Admin\PeriodController@store')->name('periods.store')
+        ->middleware('permission:periods.create');
+//Ruta para mostrar el formulario de creacion de registro de periodos
+Route::get('school', 'Admin\PeriodController@create')->name('periods.create')
+        ->middleware('permission:periods.create');
+//Ruta para actualizar un periodo por su id
+Route::put('periods/{school}', 'Admin\PeriodController@update')->name('periods.update')
+        ->middleware('permission:periods.edit');
+//Ruta para editar un periodo
+Route::get('periods/{school}/edit', 'Admin\PeriodlController@edit')->name('periods.edit')
+        ->middleware('permission:periods.edit');
+Route::delete('periods/{school}', 'Admin\PeriodController@destroy')->name('periods.destroy')
+        ->middleware('permission:periods.destroy');
 
 });
 

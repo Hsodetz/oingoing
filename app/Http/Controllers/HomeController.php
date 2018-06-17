@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use Caffeinated\Shinobi\Models\Role;
 use Shinobi;
+use Redirect;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -26,16 +28,27 @@ class HomeController extends Controller
      */
     public function index()
     {
+      
+        return view('home');
+
         // Si el rol es waynakay, ve al dashboard de waynakay 
-        if (Shinobi::isRole('waynakay')) {
-            return view('admin.users.dashboard');
+        // if (Shinobi::isRole('waynakay')) {
+        //    return view('admin.users.dashboard');
         // De lo contrario si el rol es padre ve al dashboard de padre
-        } elseif (Shinobi::isRole('padre')) {
-            return view('admin.fathers.dashboard');
+        //} elseif (Shinobi::isRole('padre')) {
+        //    return view('admin.fathers.dashboard');
         // De lo contrario si no tiene ningun rol, entonces ve a la vista home, para usuarios nuevos
-        } elseif (!Shinobi::isRole('padre') || !Shinobi::isRole('waynakay') ) {
-            return view('home');
-        } // Aqui iremos rellenando segun los roles.
-        
+        //} elseif (!Shinobi::isRole('padre') || !Shinobi::isRole('waynakay') ) {
+        //    return view('home');
+        //} // Aqui iremos rellenando segun los roles.
+      
+        //return Redirect::route('users.show');
+    }
+
+    public function show()
+    {
+        //dd(Auth::user()->id);
+        $user = Auth::user()->id;
+        return redirect()->route('users.show', compact('user'));
     }
 }

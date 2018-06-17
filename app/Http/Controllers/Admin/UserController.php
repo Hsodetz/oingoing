@@ -11,6 +11,9 @@ use Caffeinated\Shinobi\Models\Permission;
 use App\User;
 use App\Provincia;
 use App\City;
+use Auth;
+use Shinobi;
+use Redirect;
 
 class UserController extends Controller
 {
@@ -35,10 +38,18 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::findOrFail($id);
-        $roles = $user->roles;
+        if (Shinobi::isRole('waynakay') || Shinobi::isRole('admin')) {
+            $user = User::findOrFail($id);
+            $roles = $user->roles;
     
-        return view('admin.users.show', compact('user', 'roles', 'cities', 'provinces'));
+            return view('admin.users.show', compact('user', 'roles', 'cities', 'provinces'));
+        }else{
+            $id = Auth::user()->id;
+            $user = User::find($id);
+            //dd($user2->name);
+            return view('admin.users.show', compact('user'));
+        }
+        
     }
 
     /**

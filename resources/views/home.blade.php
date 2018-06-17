@@ -18,7 +18,7 @@
                             </div>
                         @endif
 
-                        <p> Estas logueado </p>
+                        <p> Estas logueado  {{ Auth()->user()->id}} </p>
                         <p> Aqui empieza todo </p>
 
                     </div>
