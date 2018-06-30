@@ -9,8 +9,8 @@
   <div class="col-md-4">
     <div class="form-group">
       <div class="form-group">
-        {!! Form::label('last_name', 'Apellidos') !!}
-        {!! Form::text('last_name', null, ['class' => 'form-control']) !!}
+        {!! Form::label('lastname', 'Apellidos') !!}
+        {!! Form::text('lastname', null, ['class' => 'form-control']) !!}
       </div>
     </div>
   </div>
@@ -59,7 +59,7 @@
   <div class="col-md-6">
     <div class="form-control">
       {!! Form::label('phone_movil', 'Telefono Movil') !!}
-      <input type="tel" name="phone_movil" class="form-control" value="{{$user->phone_movil}}">
+      <input type="tel" name="phone_movil" class="form-control" value="{{$user->phone_mobile}}">
     </div>
   </div>
   <div class="col-md-6">
@@ -94,10 +94,10 @@
     <div class="form-group">
       <h4>Sexo</h4>
       <label>
-        {!! Form::radio('sexo', 'male', ['class' => 'form-control']) !!} Masculino
+        {!! Form::radio('sex', 'male', ['class' => 'form-control']) !!} Masculino
       </label>
       <label>
-        {!! Form::radio('sexo', 'female', ['class' => 'form-control']) !!} Femenino
+        {!! Form::radio('sex', 'female', ['class' => 'form-control']) !!} Femenino
       </label>
     </div>
   </div>

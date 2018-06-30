@@ -11,7 +11,7 @@ class Teacher extends Model
     protected $table = 'teachers';
 
     protected $fillable = [
-        'school_id', 'name', 'lastname', 'phone', 'email', 'profession', 'level_study',
+        'user_id', 'school_id', 'profession', 'level_study', 'image',
     ];
 
     public function school()

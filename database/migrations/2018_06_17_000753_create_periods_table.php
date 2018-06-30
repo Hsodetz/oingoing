@@ -14,16 +14,16 @@ class CreatePeriodsTable extends Migration
     public function up()
     {
         Schema::create('periods', function (Blueprint $table) {
-            $table->increments('id');
 
             $table->increments('id');
+
             $table->string('name', 50);
             $table->date('date_ini');
             $table->date('date_end');
             $table->integer('status');
+            
             $table->timestamps();
 
-            $table->timestamps();
         });
     }
 

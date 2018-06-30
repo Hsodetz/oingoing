@@ -10,6 +10,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Caffeinated\Shinobi\Models\Role; //Hacemos uso para usar Role::
 use App\City;
 use App\Provincia;
+use App\User;
+use App\Father;
 
 
 class User extends Authenticatable
@@ -22,18 +24,19 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'province_id', 
+        'province_id',
         'city_id',
         'name', 
-        'last_name',
-        'age',
+        'lastname',
+        'username', 
+        'age', 
         'email', 
         'password', 
-        'identification_document', 
-        'address', 
-        'phone_movil',
+        'identification_document',
+        'address',
+        'phone_mobile',
         'phone_house',
-        'sexo',
+        'sex',
         'nationality',
         'occupation',
         'civil_status',
@@ -48,7 +51,7 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function role()
+    public function roles()
     {
         return $this->belongsToMany(Role::class);// se debe usar de esta manera para tabla pivote
     }
@@ -61,6 +64,16 @@ class User extends Authenticatable
     public function province()
     {
         return $this->belongsTo(Provincia::class);
+    }
+
+    public function student()
+    {
+        return $this->hasMany(Student::class);
+    }
+
+    public function father()
+    {
+        return $this->belongsTo(Father::class);
     }
  
 }

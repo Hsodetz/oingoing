@@ -11,10 +11,15 @@
     </div>
     <div class="card-body">
      
-      {!! Form::open(['route' => 'teachers.store', 'method' => 'POST']) !!}
+      {!! Form::open(['route' => 'teachers.store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
         {{ csrf_field() }}
 
         @include('admin.teachers.partials.form')
+
+        <div class="form-group">
+          {!! Form::button('Guardar &nbsp; <i class="far fa-save"></i>', ['type' => 'submit', 'class' => 'btn btn-primary float-right']) !!}
+          <a href="{{ URL::previous() }}" class="badge badge-primary"> <i class="fa fa-arrow-left"></i> Regresar </a>
+        </div>
         
       {!! Form::close() !!}
       

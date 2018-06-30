@@ -7,7 +7,10 @@
 <div class="container">
   <div class="card card-primary card-outline mt-5">
     <div class="card-header">
-      Listado de Usuarios     
+      Listado de Usuarios 
+      @can('users.create')
+      <a href="{{ route('register') }}" class="badge badge-primary float-right"> Crear <i class="fas fa-plus"></i> </a>  
+      @endcan     
     </div>
     <div class="card-body">
      
@@ -29,11 +32,11 @@
           @foreach ($users as $user)
           <tr>
             <td> {{ $user->name }} </td>
-            <td> {{ $user->last_name }} </td>
+            <td> {{ $user->lastname }} </td>
             <td> {{ $user->email }} </td>
             <td> {{ $user->nationality }} </td>
             <td> 
-              @foreach($user->role as $role)
+              @foreach($user->roles as $role)
               {{ $role->name}} 
               @endforeach
             </td>

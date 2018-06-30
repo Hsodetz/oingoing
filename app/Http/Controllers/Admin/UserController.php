@@ -11,6 +11,7 @@ use Caffeinated\Shinobi\Models\Permission;
 use App\User;
 use App\Provincia;
 use App\City;
+use App\Father;
 use Auth;
 use Shinobi;
 use Redirect;
@@ -41,15 +42,17 @@ class UserController extends Controller
         if (Shinobi::isRole('waynakay') || Shinobi::isRole('admin')) {
             $user = User::findOrFail($id);
             $roles = $user->roles;
-    
+            
             return view('admin.users.show', compact('user', 'roles', 'cities', 'provinces'));
         }else{
             $id = Auth::user()->id;
             $user = User::find($id);
-            //dd($user2->name);
-            return view('admin.users.show', compact('user'));
+            $father = Father::where('user_id', $user->id)->first(); 
+            //dd($father);
+            //dd($user);
+            return view('admin.users.show', compact('user', 'father'));
         }
-        
+
     }
 
     /**
@@ -87,12 +90,12 @@ class UserController extends Controller
         }
 
         $user = User::findOrFail($id);
-        
+
         //Primero que se actualice el usuario
         $user->update($request->all());
         //Luego que se actualicen los roles, sincronizamos los datos que pasamos con el campo roles
         $user->roles()->sync($request->get('roles'));
-        
+
         Alert::toast('Usuario actualizado satisfactoriamente!', 'success', 'top-right')->autoclose(8000);
         return redirect()->route('users.index');
     }
@@ -105,6 +108,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        Alert::toast('Usuario eliminado satisfactoriamente!', 'success', 'top-right')->autoclose(8000);
+        return Redirect::route('users.index');
     }
 }

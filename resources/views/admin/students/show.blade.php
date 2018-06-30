@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Waynakay | Padre')
+@section('title', 'Waynakay | Estudiante')
 
 @section('content')
 
@@ -8,9 +8,9 @@
   <div class="card card-primary card-outline mt-5">
     <div class="card-header">
       <h4> <strong> {{ $user->name }} {{ $user->last_name }} </strong> </h4> 
-      @if($teacher == "")
+      @if($student == "")
       @else 
-      <img src="../imagenes/profesores/{{ $teacher->image }}" width="150" height="100" class="img-rounded elevation-2">   
+      <img src="../padres/imagenes/{{ $student->image }}" width="150" height="100" class="img-rounded elevation-2">   
       @endif
     </div>
     <div class="card-body">
@@ -34,21 +34,19 @@
             </li>
           </div>
         </div>
-        
-        
-       
-      @if ($teacher == "")
+         
+      @if ($student == "")
         <h2 class="text-success"> Puedes agregar mas atributos </h2>
       @else
         <div class="row mt-2">
         <div class="col-3">
           <li class="list-group-item">
-            Direccion Trabajo: {{ $teacher->profession }} 
+            Direccion Trabajo: {{ $student->work_address }} 
           </li>
         </div>
         <div class="col-3">
           <li class="list-group-item">
-            Telefono Trabajo: {{ $teacher->level_study }} 
+            Telefono Trabajo: {{ $student->work_phone }} 
           </li>
         </div>
         <div class="col">

@@ -49,6 +49,26 @@ class HomeController extends Controller
     {
         //dd(Auth::user()->id);
         $user = Auth::user()->id;
-        return redirect()->route('users.show', compact('user'));
+        
+        if (Shinobi::isRole('Waynakay')) {
+            return redirect()->route('users.show', compact('user'));
+        } elseif(Shinobi::isRole('Padre')) {
+            return redirect()->route('fathers.show', compact('user'));
+        } elseif(Shinobi::isRole('Profesor')) {
+            return redirect()->route('teachers.show', compact('user'));
+        } elseif(Shinobi::isRole('Estudiante')) {
+            return redirect()->route('students.show', compact('user'));
+        } else {
+            return redirect()->route('home.register');
+        }
+        
+        
+        
+    }
+
+    // Metodo que se encarga de dirijir a la vista home al usuario luego de registrarse.
+    public function register()
+    {
+        return view('home');
     }
 }

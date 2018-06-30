@@ -170,6 +170,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Caffeinated\Shinobi\ShinobiServiceProvider::class,
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -233,6 +234,8 @@ return [
 
         'Shinobi' => Caffeinated\Shinobi\Facades\Shinobi::class,
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
+
+        'Image' => Intervention\Image\Facades\Image::class
     ],
 
 ];

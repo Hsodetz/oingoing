@@ -1,28 +1,30 @@
 @extends('layouts.master')
 
-@section('title', 'Padre | Edicion')
+@section('title', 'Estudiante | Registro')
 
 @section('content')
 
 <div class="container">
   <div class="card card-primary card-outline mt-5">
     <div class="card-header">
-      Editar Atributos Padre
+      Registro de Estudiante
     </div>
     <div class="card-body">
-
-      {!! Form::model($father, ['route' => ['fathers.update', $father->id], 'method' => 'PUT', 'enctype' => 'multipart/form-data']) !!}
+     
+      {!! Form::open(['route' => 'students.store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
         {{ csrf_field() }}
 
-        @include('admin.fathers.partials.form')
+        @include('admin.students.partials.form')
 
         <div class="form-group">
-          {!! Form::button('Actualizar &nbsp; <i class="fas fa-cogs"></i>', ['type' => 'submit', 'class' => 'btn btn-primary float-right']) !!}
+  
+          {!! Form::button('Guardar &nbsp; <i class="far fa-save"></i>', ['type' => 'submit', 'class' => 'btn btn-primary float-right']) !!}
           <a href="{{ URL::previous() }}" class="badge badge-primary"> <i class="fa fa-arrow-left"></i> Regresar </a>
+          
         </div>
-
+        
       {!! Form::close() !!}
-
+      
     </div>
   </div>
 </div>

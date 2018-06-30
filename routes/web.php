@@ -19,6 +19,7 @@ Auth::routes();
 
 //Route::get('/home', 'HomeController@index')->name('home');
 Route::get("/home", 'HomeController@show')->name('home');
+Route::get("/home/register", 'HomeController@register')->name('home.register');
 
 
 //Ruta para el select dependiente.
@@ -57,7 +58,7 @@ Route::get('roles/{role}', 'Admin\RoleController@show')->name('roles.show')
 Route::post('roles/store', 'Admin\RoleController@store')->name('roles.store')
         ->middleware('permission:roles.create');
 //Ruta para mostrar el formulario de creacion de registro de roles
-Route::get('role', 'Admin\RoleController@create')->name('roles.create')
+Route::get('role/create', 'Admin\RoleController@create')->name('roles.create')
         ->middleware('permission:roles.create');
 //Ruta para actualizar un rol por su id
 Route::put('roles/{role}', 'Admin\RoleController@update')->name('roles.update')
@@ -80,7 +81,7 @@ Route::get('permissions/{permission}', 'Admin\PermissionController@show')->name(
 Route::post('permissions/store', 'Admin\PermissionController@store')->name('permissions.store')
         ->middleware('permission:permissions.create');
 //Ruta para mostrar el formulario de creacion de registro de roles
-Route::get('permission', 'Admin\PermissionController@create')->name('permissions.create')
+Route::get('permission/create', 'Admin\PermissionController@create')->name('permissions.create')
         ->middleware('permission:permissions.create');
 //Ruta para actualizar un rol por su id
 Route::put('permissions/{permission}', 'Admin\PermissionController@update')->name('permissions.update')
@@ -104,7 +105,7 @@ Route::get('schools/{school}', 'Admin\SchoolController@show')->name('schools.sho
 Route::post('schools/store', 'Admin\SchoolController@store')->name('schools.store')
         ->middleware('permission:schools.create');
 //Ruta para mostrar el formulario de creacion de registro de colegios
-Route::get('school', 'Admin\SchoolController@create')->name('schools.create')
+Route::get('school/create', 'Admin\SchoolController@create')->name('schools.create')
         ->middleware('permission:schools.create');
 //Ruta para actualizar un colegio por su id
 Route::put('schools/{school}', 'Admin\SchoolController@update')->name('schools.update')
@@ -126,7 +127,7 @@ Route::get('fathers/{father}', 'Admin\FatherController@show')->name('fathers.sho
 Route::post('fathers/store', 'Admin\FatherController@store')->name('fathers.store')
         ->middleware('permission:fathers.create');
 //Ruta para mostrar el formulario de creacion de registro de colegios
-Route::get('father', 'Admin\FatherController@create')->name('fathers.create')
+Route::get('father/create', 'Admin\FatherController@create')->name('fathers.create')
         ->middleware('permission:fathers.create');
 //Ruta para actualizar un colegio por su id
 Route::put('fathers/{father}', 'Admin\FatherController@update')->name('fathers.update')
@@ -140,25 +141,35 @@ Route::delete('fathers/{father}', 'Admin\FatherController@destroy')->name('fathe
 
 //Rutas para los profesores
 // Ruta para listar todos los profesores
-Route::get('teachers', 'Admin\FatherController@index')->name('teachers.index')
-->middleware('permission:teachers.index');
+Route::get('teachers',                  'Admin\TeacherController@index')->name('teachers.index')->middleware('permission:teachers.index');
 //Ruta para ver los detalles de un profesor
-Route::get('teachers/{father}', 'Admin\FatherController@show')->name('teachers.show')
-->middleware('permission:teachers.show');
+Route::get('teachers/{teacher}',         'Admin\TeacherController@show')->name('teachers.show')->middleware('permission:teachers.show');
 //Ruta para almacenar los datos luego de ser introducidos en el formulario
-Route::post('teachers/store', 'Admin\FatherController@store')->name('teachers.store')
-->middleware('permission:teachers.create');
+Route::post('teachers/store',           'Admin\TeacherController@store')->name('teachers.store')->middleware('permission:teachers.create');
 //Ruta para mostrar el formulario de creacion de registro de profesores
-Route::get('teacher', 'Admin\FatherController@create')->name('teachers.create')
-->middleware('permission:teachers.create');
+Route::get('teacher/create',            'Admin\TeacherController@create')->name('teachers.create')->middleware('permission:teachers.create');
 //Ruta para actualizar un profesor por su id
-Route::put('teachers/{father}', 'Admin\FatherController@update')->name('teachers.update')
-->middleware('permission:teachers.edit');
+Route::put('teachers/{teacher}',         'Admin\TeacherController@update')->name('teachers.update')->middleware('permission:teachers.edit');
 //Ruta para editar un profesor
-Route::get('teachers/{father}/edit', 'Admin\FatherController@edit')->name('teachers.edit')
-->middleware('permission:teachers.edit');
-Route::delete('teachers/{father}', 'Admin\FatherController@destroy')->name('teachers.destroy')
-->middleware('permission:teachers.destroy');
+Route::get('teachers/{teacher}/edit',    'Admin\TeacherController@edit')->name('teachers.edit')->middleware('permission:teachers.edit');
+Route::delete('teachers/{teacher}',      'Admin\TeacherController@destroy')->name('teachers.destroy')->middleware('permission:teachers.destroy');
+
+//Rutas para los estudiantes
+// Ruta para listar todos los estudiantes
+Route::get('students',                  'Admin\StudentController@index')->name('students.index')->middleware('permission:students.index');
+//Ruta para ver los detalles de un estudiante
+Route::get('students/{father}',         'Admin\StudentController@show')->name('students.show')->middleware('permission:students.show');
+//Ruta para almacenar los datos luego de ser introducidos en el formulario
+Route::post('students/store',           'Admin\StudentController@store')->name('students.store')->middleware('permission:students.create');
+//Ruta para mostrar el formulario de creacion de registro de estudiantes
+Route::get('student/create',            'Admin\StudentController@create')->name('students.create')->middleware('permission:students.create');
+//Ruta para actualizar un estudiante por su id
+Route::put('students/{father}',         'Admin\StudentController@update')->name('students.update')->middleware('permission:students.edit');
+//Ruta para editar un estudiante
+Route::get('students/{father}/edit',    'Admin\StudentController@edit')->name('students.edit')->middleware('permission:students.edit');
+//Ruta para eliminar un estudiante
+Route::delete('students/{father}',      'Admin\StudentController@destroy')->name('students.destroy')->middleware('permission:students.destroy');
+
 
 //Rutas para los periodos
 // Ruta para listar todos los periodos
@@ -172,13 +183,13 @@ Route::get('periods/{school}', 'Admin\PeriodController@show')->name('periods.sho
 Route::post('periods/store', 'Admin\PeriodController@store')->name('periods.store')
         ->middleware('permission:periods.create');
 //Ruta para mostrar el formulario de creacion de registro de periodos
-Route::get('school', 'Admin\PeriodController@create')->name('periods.create')
+Route::get('period/create', 'Admin\PeriodController@create')->name('periods.create')
         ->middleware('permission:periods.create');
 //Ruta para actualizar un periodo por su id
 Route::put('periods/{school}', 'Admin\PeriodController@update')->name('periods.update')
         ->middleware('permission:periods.edit');
 //Ruta para editar un periodo
-Route::get('periods/{school}/edit', 'Admin\PeriodlController@edit')->name('periods.edit')
+Route::get('periods/{school}/edit', 'Admin\PeriodController@edit')->name('periods.edit')
         ->middleware('permission:periods.edit');
 Route::delete('periods/{school}', 'Admin\PeriodController@destroy')->name('periods.destroy')
         ->middleware('permission:periods.destroy');

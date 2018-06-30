@@ -6,11 +6,14 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Auth\Events\Registered;
 
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Provincia;
 use App\City;
 use Caffeinated\Shinobi\Models\Role; //Hacemos uso para usar Role::
+use Auth;
 
 class RegisterController extends Controller
 {
@@ -32,7 +35,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/home/register';
 
     /**
      * Create a new controller instance.
@@ -41,7 +44,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('auth');
     }
 
     public function showRegistrationForm()
@@ -69,17 +72,18 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name'                      => 'required|string|max:255',
-            'last_name'                 => 'required|string|max:255',
-            'age'                       => 'required|integer|min:1,max:3',
+            'lastname'                  => 'required|string|max:255',
+            'username'                  => 'required|string|max:50|unique:users',
+            'age'                       => 'required|min:1,max:3',
             'email'                     => 'required|string|email|max:255|unique:users',
             'password'                  => 'required|string|min:6|confirmed',
             'identification_document'   => 'required|string|min:4',
             'province_id'               => 'required|string',
             'city_id'                   => 'required|string',
             'address'                   => 'required|min:4',
-            'phone_movil'               => 'required|min:4',
+            'phone_mobile'              => 'required|min:4',
             'phone_house'               => 'required|min:4',
-            'sexo'                      => 'required',
+            'sex'                       => 'required',
             'nationality'               => 'required|min:4',
             'occupation'                => 'required',
             'civil_status'              => 'required',
@@ -94,10 +98,10 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-       
         return User::create([
             'name'                      => $data['name'],
-            'last_name'                 => $data['last_name'],
+            'lastname'                  => $data['lastname'],
+            'username'                  => $data['username'],
             'age'                       => $data['age'],
             'email'                     => $data['email'],
             'password'                  => bcrypt($data['password']),
@@ -105,13 +109,35 @@ class RegisterController extends Controller
             'province_id'               => $data['province_id'],
             'city_id'                   => $data['city_id'],
             'address'                   => $data['address'],
-            'phone_movil'               => $data['phone_movil'],
+            'phone_mobile'              => $data['phone_mobile'],
             'phone_house'               => $data['phone_house'],
-            'sexo'                      => $data['sexo'],
+            'sex'                       => $data['sex'],
             'nationality'               => $data['nationality'],
             'occupation'                => $data['occupation'],
             'civil_status'              => $data['civil_status'],
         ]);
+    }
+
+    // Agregamos la funcion de registro, para poder registrar sin que entre el nuevo usuario, osea se quede el que esta registrando
+    public function register(Request $request)
+    { 
+        $this->validator($request->all())->validate();
         
+        event(new Registered($user = $this->create($request->all())));
+        
+        //$this->guard()->login($user);
+        Alert::success("Exito", 'El nuevo usuario ya se encuentra registrado, ahora debes asignarle un rol')->autoclose(8000);
+        return redirect()->route('users.index');                    
+    }
+
+    // Funcion para redirijir al login despues de haber registrado un usuario.
+    // Solo se usa si no usamos la funcion de register, que se encuentra arrriba
+    protected function registered(Request $request, $user)
+    {
+        //dd(Auth()->user()->username);
+        Alert::success("Bienvenid@ " .Auth()->user()->name, 'Te encuentras ya registrado en nuestro sistema')->autoclose(5000);
+        sleep(1);
+        Auth::logout();
+        return redirect()->route('login');
     }
 }

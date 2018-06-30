@@ -7,7 +7,11 @@
 <div class="container">
   <div class="card card-primary card-outline mt-5">
     <div class="card-header">
-      <h4> Padre <strong>  </strong> </h4>     
+      <h4> <strong> {{ $user->name }} {{ $user->last_name }} </strong> </h4> 
+      @if($father == "")
+      @else 
+      <img src="../padres/imagenes/{{ $father->image }}" width="150" height="100" class="img-rounded elevation-2">   
+      @endif
     </div>
     <div class="card-body">
     
@@ -16,23 +20,49 @@
         <div class="row">
           <div class="col-3">
             <li class="list-group-item">
-              Provincia:  
+              Provincia: {{ $user->province->name }} 
             </li>
           </div>
           <div class="col-3">
             <li class="list-group-item">
-              Ciudad:  
+              Ciudad:  {{ $user->city->name }}
             </li>
           </div>
           <div class="col">
             <li class="list-group-item">
-              Direccion: 
+              Direccion: {{ $user->address }}
             </li>
           </div>
         </div>
+        
+        
+       
+      @if ($father == "")
+        <h2 class="text-success"> Puedes agregar mas atributos </h2>
+      @else
+        <div class="row mt-2">
+        <div class="col-3">
+          <li class="list-group-item">
+            Direccion Trabajo: {{ $father->work_address }} 
+          </li>
+        </div>
+        <div class="col-3">
+          <li class="list-group-item">
+            Telefono Trabajo: {{ $father->work_phone }} 
+          </li>
+        </div>
+        <div class="col">
+          <li class="list-group-item">
+            
+          </li>
+        </div>
+        </div>
+      @endif
+       
       </ul>
-
     </div>
+    <a href="{{ URL::previous() }}">Regresar</a>
   </div>
 </div>
+
 @stop

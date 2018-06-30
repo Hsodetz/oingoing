@@ -1,5 +1,5 @@
 <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <aside class="main-sidebar sidebar-light-dark elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link bg-principal">
       <img src="{{ asset('/imagenes/waynakay.png') }}" alt="AdminLTE Logo" class="brand-image ml-4"
@@ -11,15 +11,14 @@
   <div class="sidebar">
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-      
+
       <div class="info">
         <a href="#" class="d-block">
           @guest
           <span>  </span>
           @else
           <div class="image">
-            <img src="{{ asset('/imagenes/avatar.png') }}" class="elevation-2" alt="User Image">
-            <span class="badge badge-light ml-3"> {{ Auth::user()->name }}   </span>
+            @include('includes.sidebarfoto')
           </div>
           @endguest
         </a>
@@ -53,14 +52,14 @@
             <li class="nav-item">
               <a href="{{route('schools.index')}}" class="nav-link">
                 <i class="fa fa-circle-o nav-icon"></i>
-                <p>Ver Listado de Colegios</p>
+                <p>Ver Listado </p>
               </a>
             </li>
           </ul>
         </li>
         @endcan
 
-        @can('fathers.index')
+        @can('fathers.show')
         <li class="nav-item has-treeview">
           <a href="#" class="nav-link">
               <i class="nav-icon fas fa-user-check text-primary"></i>
@@ -70,16 +69,102 @@
             </p>
           </a>
           <ul class="nav nav-treeview">
+            @canatleast(['fathers.index', 'fathers.index'])
             <li class="nav-item">
               <a href="{{route('fathers.index')}}" class="nav-link">
                 <i class="fa fa-circle-o nav-icon"></i>
-                <p>Ver Listado de Padres</p>
+                <p>Ver Listado</p>
+              </a>
+            </li>
+            @endcanatleast
+            
+            <li class="nav-item">
+              <a href="{{route('fathers.create')}}" class="nav-link">
+                <i class="fa fa-circle-o nav-icon"></i>
+                <p> Asignar atributos </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('fathers.edit', Auth()->user()->id) }}" class="nav-link">
+                <i class="fa fa-circle-o nav-icon"></i>
+                <p> Editar atributos  </p>
               </a>
             </li>
           </ul>
         </li>
         @endcan
-      
+
+        @can('students.show')
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user-graduate text-primary"></i>
+            <p>
+              Estudiantes
+              <i class="fa fa-angle-left right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            @canatleast(['students.index', 'students.index'])
+            <li class="nav-item">
+              <a href="{{route('students.index')}}" class="nav-link">
+                <i class="fa fa-circle-o nav-icon"></i>
+                <p>Ver Listado</p>
+              </a>
+            </li>
+            @endcanatleast
+            
+            <li class="nav-item">
+              <a href="{{route('students.create')}}" class="nav-link">
+                <i class="fa fa-circle-o nav-icon"></i>
+                <p> Asignar atributos </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('students.edit', Auth()->user()->id) }}" class="nav-link">
+                <i class="fa fa-circle-o nav-icon"></i>
+                <p> Editar atributos </p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        @endcan
+
+        @can('teachers.show')
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user-tie text-primary"></i>
+            <p>
+              Profesores
+              <i class="fa fa-angle-left right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            @canatleast(['teachers.index', 'teachers.index'])
+            <li class="nav-item">
+              <a href="{{route('teachers.index')}}" class="nav-link">
+                <i class="fa fa-circle-o nav-icon"></i>
+                <p>Ver Listado</p>
+              </a>
+            </li>
+            @endcanatleast
+            
+            <li class="nav-item">
+              <a href="{{route('teachers.create')}}" class="nav-link">
+                <i class="fa fa-circle-o nav-icon"></i>
+                <p> Asignar atributos </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('teachers.edit', Auth()->user()->id) }}" class="nav-link">
+                <i class="fa fa-circle-o nav-icon"></i>
+                <p> Editar atributos </p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        @endcan
+        
+
         @can('roles.index')
         <li class="nav-item has-treeview">
           <a href="#" class="nav-link">
@@ -151,34 +236,6 @@
           </ul>
         </li>
         @endcan
-      
-      
-        <li class="nav-header">MISCELLANEOUS</li>
-        <li class="nav-item">
-          <a href="https://adminlte.io/docs" class="nav-link">
-            <i class="nav-icon fa fa-file"></i>
-            <p>Documentation</p>
-          </a>
-        </li>
-        <li class="nav-header">LABELS</li>
-        <li class="nav-item">
-          <a href="#" class="nav-link">
-              <i class="nav-icon far fa-circle text-danger"></i>
-            <p class="text">Important</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link">
-            <i class="nav-icon far fa-circle text-warning"></i>
-            <p>Warning</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link">
-            <i class="nav-icon far fa-circle text-info"></i>
-            <p>Informational</p>
-          </a>
-        </li>
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

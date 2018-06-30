@@ -1,58 +1,28 @@
 <div class="form-group">
-
-{!! Form::label('name', 'Nombre') !!}
-
-{!! Form::text('name', null, ['class' => 'form-control']) !!}
-
-</div>
-
-<div class="form-group">
-
-{!! Form::label('slug', 'Slug') !!}
-
-{!! Form::text('slug', null, ['class' => 'form-control']) !!}
-
-</div>
-
-<div class="form-group">
-
-{!! Form::label('description', 'Descripcion') !!}
-
-{!! Form::text('description', null, ['class' => 'form-control']) !!}
-
-</div>
-
-<hr>
-<div class="form-group">
-<h3> Permiso especial </h3>
-
-<br>
-<label>
-  {!! Form::radio('special', 'all-access', ['class' => 'form-control']) !!} <span class="badge badge-primary"> Acceso Total </span>
-</label>
-<label>
-  {!! Form::radio('special', 'no-access', ['class' => 'form-control']) !!} <span class="badge badge-danger">Ningun Acceso</span>
-</label>
-</div>
-<hr>
-
-<div class="form-control">
-  <h3>Lista de Permisos</h3>
-  @foreach ($permissions as $permission)
-    <div class="form-control">
-      <label>
-        {!! Form::checkbox('permissions[]', $permission->id, null) !!}
-        {{ $permission->name }}
-        <em> {{ $permission->description ?: "Sin descripcion" }} </em>
-      </label>
-    </div>   
-  @endforeach
-</div>
-
-<br>
-<div class="form-group">
+    {!! Form::label('name', 'Profesor') !!}
+    {!! Form::text('name', Auth()->user()->name, ['class' => 'form-control']) !!}
+  </div>
   
-  {!! Form::button('Guardar &nbsp; <i class="far fa-save"></i>', ['type' => 'submit', 'class' => 'btn btn-primary float-right']) !!}
-  <a href="{{ URL::previous() }}" class="badge badge-primary"> <i class="fa fa-arrow-left"></i> Regresar </a>
+  <div class="form-group">
+    {!! Form::text('user_id', Auth()->user()->id, ['class' => 'form-control', 'hidden' => 'hidden']) !!}
+  </div>
+
+  <div class="form-group">
+    {!! Form::label('school_id', 'Colegio') !!}
+    {!! Form::select('school_id', $schools, ['placeholder', 'Seleccione'], ['class' => 'form-control']) !!}
+  </div>
   
-</div>
+  <div class="form-group">
+    {!! Form::label('profession', 'Profesion') !!}
+    {!! Form::text('profession', null, ['class' => 'form-control']) !!}
+  </div>
+  
+  <div class="form-group">
+    {!! Form::label('level_study', 'Nivel de estudio') !!}
+    {!! Form::select('level_study', ['Tecnico' => 'Tecnico', 'Tercer Nivel' => 'Tercer Nivel', 'Cuarto Nivel' => 'Cuarto Nivel'], ['placeholder', 'Seleccione'], ['class' => 'form-control']) !!}
+  </div>
+
+  <div class="form-group">
+    {!! Form::label('image', 'Imagen') !!}
+    {!! Form::file('image', ['class' => 'form-control btn btn-primary btn-sm', 'required']) !!}
+  </div>

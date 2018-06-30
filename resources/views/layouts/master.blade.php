@@ -19,8 +19,11 @@
 <body class="sidebar-mini sidebar-collapse" style="height: auto;">
 
   @include('includes.navbar')  
+   
+  @if (Auth()->user())
+    @include('includes.sidebar')
+  @endif
   
-  @include('includes.sidebar')
   <div class="content-wrapper">
     
     @yield('content')

@@ -40,16 +40,30 @@
 <hr>
 
 <div class="form-control">
-  <h3>Lista de Permisos</h3>
-  @foreach ($permissions as $permission)
-    <div class="form-control">
-      <label>
-        {!! Form::checkbox('permissions[]', $permission->id, null) !!}
-        {{ $permission->name }}
-        <em> {{ $permission->description ?: "Sin descripcion" }} </em>
-      </label>
-    </div>   
-  @endforeach
+  <div id="accordion">
+    <div class="card">
+      <div class="card-header" id="headingOne">
+        <h5 class="mb-0">
+            <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">
+              Listado de Permisos
+            </button>
+        </h5>
+      </div>
+      <div class="collapse multi-collapse" id="multiCollapseExample1">
+        <div class="card-body">
+            @foreach ($permissions as $permission)
+              <div class="form-control">
+                <label>
+                  {!! Form::checkbox('permissions[]', $permission->id, null) !!}
+                  {{ $permission->name }}
+                  <em> {{ $permission->description ?: "Sin descripcion" }} </em>
+                </label>
+              </div>   
+            @endforeach
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <br>

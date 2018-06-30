@@ -30,39 +30,38 @@
    
           @foreach ($fathers as $father)
 
-            @foreach($father->role as $role) 
-            
+            @foreach($father->roles as $role) 
+          
+              @if ($role->name == "Padre") {{--Condicion para que muestre solo los que tienen rol padre --}}        
+                <tr>
+                  <td> {{ $father->name }} </td>
+                  <td> {{ $father->lastname }} </td>
+                  <td>
+                      {{ $role->name }} 
+                  </td>
+                  <td width="10px">
+                    @can('fathers.show')
+                      <a class="btn btn-sm btn-primary" href="{{ route('fathers.show', $father->id) }}"> Ver </a>
+                    @endcan
+                  </td>
+                  <td width="10px">
+                    @can('fathers.edit')
+                      <a class="btn btn-sm btn-warning" href="{{ route('fathers.edit', $father->id) }}"> Editar </a>
+                    @endcan
+                  </td>
+                  <td width="10px">
+                    @can('fathers.destroy')
+
+                      {!! Form::open(['route' => ['fathers.destroy', $father->id], 'method' => 'DELETE', 'onclick' => ' return confirm("Estas seguro?")']) !!}
+                        <button class="btn btn-sm btn-danger"> Eliminar </button>
+                      {!! Form::close() !!}
+
+                    @endcan
+                  </td>
+                
+                </tr> 
+              @endif
             @endforeach
-
-            @if ($role->name == "Padre") {{--Condicion para que muestre solo los que tienen rol padre --}}        
-              <tr>
-                <td> {{ $father->name }} </td>
-                <td> {{ $father->last_name }} </td>
-                <td>
-                    {{ $role->name }} 
-                </td>
-                <td width="10px">
-                  @can('fathers.show')
-                    <a class="btn btn-sm btn-primary" href="{{ route('fathers.show', $father->id) }}"> Ver </a>
-                  @endcan
-                </td>
-                <td width="10px">
-                  @can('fathers.edit')
-                    <a class="btn btn-sm btn-warning" href="{{ route('fathers.edit', $father->id) }}"> Editar </a>
-                  @endcan
-                </td>
-                <td width="10px">
-                  @can('fathers.destroy')
-
-                    {!! Form::open(['route' => ['fathers.destroy', $father->id], 'method' => 'DELETE', 'onclick' => ' return confirm("Estas seguro?")']) !!}
-                      <button class="btn btn-sm btn-danger"> Eliminar </button>
-                    {!! Form::close() !!}
-
-                  @endcan
-                </td>
-              
-              </tr> 
-            @endif
           @endforeach
         
         </tbody>
