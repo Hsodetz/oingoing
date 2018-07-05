@@ -20,6 +20,8 @@ class CreateStudentsTable extends Migration
             $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->integer('father_user_id')->unsigned();
+            $table->foreign('father_user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('registration_number', 50);
             $table->string('image');
 

@@ -20,6 +20,8 @@ class CreateUsersTable extends Migration
             $table->foreign('province_id')->references('id')->on('provincias');
             $table->integer('city_id')->unsigned();
             $table->foreign('city_id')->references('id')->on('cities');
+            $table->integer('role_id')->unsigned()->nullable();
+            $table->foreign('role_id')->references('id')->on('roles');
             $table->string('name', 50);
             $table->string('lastname', 50);
             $table->string('username', 50)->unique();

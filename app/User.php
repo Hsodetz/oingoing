@@ -12,6 +12,7 @@ use App\City;
 use App\Provincia;
 use App\User;
 use App\Father;
+use App\Student;
 
 
 class User extends Authenticatable
@@ -24,6 +25,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
+        'role_id',
         'province_id',
         'city_id',
         'name', 
@@ -73,7 +75,7 @@ class User extends Authenticatable
 
     public function father()
     {
-        return $this->belongsTo(Father::class);
+        return $this->hasMany(Father::class);
     }
  
 }

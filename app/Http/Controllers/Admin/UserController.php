@@ -91,11 +91,15 @@ class UserController extends Controller
 
         $user = User::findOrFail($id);
 
+        // Le pasamos el rol_id para guardarlo en la tabla users
+        $user->role_id = $request->roles[0];
+        //dd($user->role_id);
+       
         //Primero que se actualice el usuario
         $user->update($request->all());
-        //Luego que se actualicen los roles, sincronizamos los datos que pasamos con el campo roles
+        //Luego que se actualicen los roles, sincronizamos los datos que pasamos con el campo roles, para la tabla role_user
         $user->roles()->sync($request->get('roles'));
-
+         
         Alert::toast('Usuario actualizado satisfactoriamente!', 'success', 'top-right')->autoclose(8000);
         return redirect()->route('users.index');
     }

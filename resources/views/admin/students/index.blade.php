@@ -29,40 +29,34 @@
         <tbody>
    
           @foreach ($students as $student)
+            <tr>
+              <td> {{ $student->name }} </td>
+              <td> {{ $student->lastname }} </td>
+              <td>
+                @foreach($student->roles as $role) 
+                  {{ $role->name }} 
+                @endforeach
+              </td>
+              <td width="10px">
+                @can('students.show')
+                  <a class="btn btn-sm btn-primary" href="{{ route('students.show', $student->id) }}"> Ver </a>
+                @endcan
+              </td>
+              <td width="10px">
+                @can('students.edit')
+                  <a class="btn btn-sm btn-warning" href="{{ route('students.edit', $student->id) }}"> Editar </a>
+                @endcan
+              </td>
+              <td width="10px">
+                @can('students.destroy')
 
-            @foreach($student->roles as $role) 
-          
-            @if ($role->name == "Estudiante") {{--Condicion para que muestre solo los que tienen rol padre --}}        
-              <tr>
-                <td> {{ $student->name }} </td>
-                <td> {{ $student->lastname }} </td>
-                <td>
-                    {{ $role->name }} 
-                </td>
-                <td width="10px">
-                  @can('students.show')
-                    <a class="btn btn-sm btn-primary" href="{{ route('students.show', $student->id) }}"> Ver </a>
-                  @endcan
-                </td>
-                <td width="10px">
-                  @can('students.edit')
-                    <a class="btn btn-sm btn-warning" href="{{ route('students.edit', $student->id) }}"> Editar </a>
-                  @endcan
-                </td>
-                <td width="10px">
-                  @can('students.destroy')
+                  {!! Form::open(['route' => ['students.destroy', $student->id], 'method' => 'DELETE', 'onclick' => ' return confirm("Estas seguro?")']) !!}
+                    <button class="btn btn-sm btn-danger"> Eliminar </button>
+                  {!! Form::close() !!}
 
-                    {!! Form::open(['route' => ['students.destroy', $student->id], 'method' => 'DELETE', 'onclick' => ' return confirm("Estas seguro?")']) !!}
-                      <button class="btn btn-sm btn-danger"> Eliminar </button>
-                    {!! Form::close() !!}
-
-                  @endcan
-                </td>
-              
-              </tr> 
-            @endif
-
-            @endforeach
+                @endcan
+              </td>
+            </tr>  
           @endforeach
         
         </tbody>

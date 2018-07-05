@@ -164,11 +164,11 @@ Route::post('students/store',           'Admin\StudentController@store')->name('
 //Ruta para mostrar el formulario de creacion de registro de estudiantes
 Route::get('student/create',            'Admin\StudentController@create')->name('students.create')->middleware('permission:students.create');
 //Ruta para actualizar un estudiante por su id
-Route::put('students/{father}',         'Admin\StudentController@update')->name('students.update')->middleware('permission:students.edit');
+Route::put('students/{student}',         'Admin\StudentController@update')->name('students.update')->middleware('permission:students.edit');
 //Ruta para editar un estudiante
-Route::get('students/{father}/edit',    'Admin\StudentController@edit')->name('students.edit')->middleware('permission:students.edit');
+Route::get('students/{student}/edit',    'Admin\StudentController@edit')->name('students.edit')->middleware('permission:students.edit');
 //Ruta para eliminar un estudiante
-Route::delete('students/{father}',      'Admin\StudentController@destroy')->name('students.destroy')->middleware('permission:students.destroy');
+Route::delete('students/{student}',      'Admin\StudentController@destroy')->name('students.destroy')->middleware('permission:students.destroy');
 
 
 //Rutas para los periodos

@@ -11,12 +11,17 @@ use App\User;
 class Student extends Model
 {
     protected $fillable = [
-        'user_id', 'school_id', 'registration_number', 'image',
+        'user_id', 'father_user_id', 'school_id', 'registration_number', 'image',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function father()
+    {
+        return $this->belongsTo(Father::class);
     }
 
     public function role()

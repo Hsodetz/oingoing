@@ -10,7 +10,7 @@
       <h4> <strong> {{ $user->name }} {{ $user->last_name }} </strong> </h4> 
       @if($student == "")
       @else 
-      <img src="../padres/imagenes/{{ $student->image }}" width="150" height="100" class="img-rounded elevation-2">   
+      <img src="../imagenes/estudiantes/{{ $student->image }}" width="150" height="100" class="img-rounded elevation-2">   
       @endif
     </div>
     <div class="card-body">
@@ -26,11 +26,13 @@
           <div class="col-3">
             <li class="list-group-item">
               Ciudad:  {{ $user->city->name }}
+                        {{ $user->city }}
             </li>
           </div>
           <div class="col">
             <li class="list-group-item">
               Direccion: {{ $user->address }}
+              
             </li>
           </div>
         </div>

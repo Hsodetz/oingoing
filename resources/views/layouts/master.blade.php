@@ -17,15 +17,13 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 <body class="sidebar-mini sidebar-collapse" style="height: auto;">
-
-  @include('includes.navbar')  
-   
-  @if (Auth()->user())
+ 
+  @if (Auth()->check())
+    @include('includes.navbar')  
     @include('includes.sidebar')
   @endif
   
   <div class="content-wrapper">
-    
     @yield('content')
   </div>
  

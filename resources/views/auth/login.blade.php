@@ -8,7 +8,7 @@
 
         </div>
         <div class="col-md-4">
-            <div class="card card-default mt-5">
+            <div class="card card-default mt-9">
                 <div class="card-header">Login</div>
 
                 <div class="card-body">
@@ -23,7 +23,7 @@
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        <strong class="text-danger">{{ $errors->first('email') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -37,7 +37,7 @@
 
                                 @if ($errors->has('password'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
+                                        <strong class="text-danger">{{ $errors->first('password') }}</strong>
                                     </span>
                                 @endif
                             </div>

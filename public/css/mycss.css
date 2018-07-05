@@ -28,3 +28,8 @@ p, li{
 .bg-gray{
   background-color: #eeeeee;
 }
+
+/* Margin top */
+.mt-9{
+  margin-top: 9rem;
+}

@@ -19,5 +19,26 @@ class RolesTableSeeder extends Seeder
             'description'   => 'Administrador con accesso total al sistema',
             'special'       => 'all-access',
         ]);
+
+        Role::create([
+            'name'          => 'Padre',
+            'slug'          => 'padre',
+            'description'   => 'Rol para acceso a padres',
+            'special'       => 'no-access',
+        ]);
+
+        Role::create([
+            'name'          => 'Profesor',
+            'slug'          => 'profesor',
+            'description'   => 'Rol para acceso a profesores',
+            'special'       => 'no-access',
+        ]);
+
+        Role::create([
+            'name'          => 'Estudiante',
+            'slug'          => 'estudiante',
+            'description'   => 'Rol para acceso a estudiantes',
+            'special'       => 'no-access',
+        ]);
     }
 }
